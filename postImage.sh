@@ -46,3 +46,14 @@ function install_dmg() {
 install_dmg "FusionInventory_Agent" "http://tech.napoleonareaschools.org/NACS-FIA.dmg"
 # Download MunkiWebAdmin and install
 install_dmg "MunkiWebAdmin" "http://tech.napoleonareaschools.org/munkiwebadmin.dmg"
+
+# Download puppet file and run to install puppet
+curl -O https://raw.github.com/nastechnology/mac-bootstrap/master/puppet.sh
+
+chmod +x ./puppet.sh
+
+./puppet.sh
+
+rm ./puppet.sh
+
+echo "Don't forget to add the inventory tag to /opt/fusioninventory-agent/agent.cfg"
