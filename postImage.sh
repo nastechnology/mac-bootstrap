@@ -1,5 +1,7 @@
 #!/usr/bin/env bash
 
+HOSTNAME=$1
+
 set -e
 
 #--------------------------------------------------------------------
@@ -40,6 +42,10 @@ function install_dmg() {
   echo "-- Unmounting and ejecting DMG..."
   hdiutil eject ${mount_point} >/dev/null
 }
+
+echo "-- Change host name..."
+scutil --set HostName ${HOSTNAME}
+echo "Changed hostname to ${HOSTNAME}"
 
 
 # Download FusionInventory-Agent and install
