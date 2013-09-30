@@ -62,4 +62,36 @@ sudo ./puppet.sh
 
 rm ./puppet.sh
 
+echo "-- Create Puppet Group..."
+sudo puppet resource group puppet ensure=present
+echo "Created Puppet Group"
+
+echo "-- Create Puppet User..."
+sudo puppet resource user puppet ensure=present gid=puppet shell='/sbin/nologin'
+echo "Created Puppet User"
+
+echo "-- Get LaunchDaemon File..."
+curl -k -O http://tech.napoleonareaschools.org/com.puppetlabs.puppet.plist >  /Library/LaunchDaemons/com.puppetlabs.puppet.plist
+
+echo "-- Set permissions on launchdaemon file..."
+sudo chown root:wheel /Library/LaunchDaemons/com.puppetlabs.puppet.plist  
+sudo chmod 644 /Library/LaunchDaemons/com.puppetlabs.puppet.plist
+echo "Permissions are now set"
+
+echo "-- Write puppet configuration file..."
+echo "[main]" > /etc/puppet/puppet.conf
+echo "server = puppet.nas.local" >> /etc/puppet/puppet.conf
+echo "pluginsync = true" >> /etc/puppet/puppet.conf
+echo "" >> /etc/puppet/puppet.conf
+echo "[agent]" >> /etc/puppet/puppet.conf
+echo "runinterval = 1800" >> /etc/puppet/puppet.conf
+echo "certname = ${HOSTNAME}.nas.local" >> /etc/puppet/puppet.conf
+echo "report = true" >> /etc/puppet/puppet.conf
+echo "Done writing configuration file"
+
+echo "-- Make Launchd aware of new daemon..."
+sudo launchctl load -w /Library/LaunchDaemons/com.puppetlabs.puppet.plist
+echo "Launchd is now aware of puppetlabs daemon"
+
 echo "Don't forget to add the inventory tag to /opt/fusioninventory-agent/agent.cfg"
+echo "Then reboot you device"
