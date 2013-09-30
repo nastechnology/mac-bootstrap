@@ -54,11 +54,11 @@ install_dmg "FusionInventory_Agent" "http://tech.napoleonareaschools.org/NACS-FI
 install_dmg "MunkiWebAdmin" "http://tech.napoleonareaschools.org/munkiwebadmin.dmg"
 
 # Download puppet file and run to install puppet
-curl -O https://raw.github.com/nastechnology/mac-bootstrap/master/puppet.sh
+curl -k -O https://raw.github.com/nastechnology/mac-bootstrap/master/puppet.sh
 
 chmod +x ./puppet.sh
 
-./puppet.sh
+sudo ./puppet.sh
 
 rm ./puppet.sh
 
