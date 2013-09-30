@@ -70,8 +70,43 @@ echo "-- Create Puppet User..."
 sudo puppet resource user puppet ensure=present gid=puppet shell='/sbin/nologin'
 echo "Created Puppet User"
 
-echo "-- Get LaunchDaemon File..."
-curl -k -O http://tech.napoleonareaschools.org/com.puppetlabs.puppet.plist >  /Library/LaunchDaemons/com.puppetlabs.puppet.plist
+echo "-- Write LaunchDaemon File..."
+echo '<?xml version="1.0" encoding="UTF-8"?>' > /Library/LaunchDaemons/com.puppetlabs.puppet.plist
+echo '<!DOCTYPE plist PUBLIC "-//Apple Computer//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">' >> /Library/LaunchDaemons/com.puppetlabs.puppet.plist
+echo '<plist version="1.0">' >> /Library/LaunchDaemons/com.puppetlabs.puppet.plist
+echo '<dict>' >> /Library/LaunchDaemons/com.puppetlabs.puppet.plist
+echo '        <key>EnvironmentVariables</key>' >> /Library/LaunchDaemons/com.puppetlabs.puppet.plist
+echo '        <dict>' >> /Library/LaunchDaemons/com.puppetlabs.puppet.plist
+echo '                <key>PATH</key>' >> /Library/LaunchDaemons/com.puppetlabs.puppet.plist
+echo '                <string>/sbin:/usr/sbin:/bin:/usr/bin</string>' >> /Library/LaunchDaemons/com.puppetlabs.puppet.plist
+echo '                <key>RUBYLIB</key>' >> /Library/LaunchDaemons/com.puppetlabs.puppet.plist
+echo '                <string>/usr/lib/ruby/site_ruby/1.8/</string>' >> /Library/LaunchDaemons/com.puppetlabs.puppet.plist
+echo '        </dict>' >> /Library/LaunchDaemons/com.puppetlabs.puppet.plist
+echo '        <key>Label</key>' >> /Library/LaunchDaemons/com.puppetlabs.puppet.plist
+echo '        <string>com.puppetlabs.puppet</string>' >> /Library/LaunchDaemons/com.puppetlabs.puppet.plist
+echo '        <key>OnDemand</key>' >> /Library/LaunchDaemons/com.puppetlabs.puppet.plist
+echo '        <false/>' >> /Library/LaunchDaemons/com.puppetlabs.puppet.plist
+echo '        <key>ProgramArguments</key>' >> /Library/LaunchDaemons/com.puppetlabs.puppet.plist
+echo '        <array>' >> /Library/LaunchDaemons/com.puppetlabs.puppet.plist
+echo '                <string>/usr/bin/puppet</string>' >> /Library/LaunchDaemons/com.puppetlabs.puppet.plist
+echo '                <string>agent</string>' >> /Library/LaunchDaemons/com.puppetlabs.puppet.plist
+echo '                <string>--verbose</string>' >> /Library/LaunchDaemons/com.puppetlabs.puppet.plist
+echo '                <string>--no-daemonize</string>' >> /Library/LaunchDaemons/com.puppetlabs.puppet.plist
+echo '                <string>--logdest</string>' >> /Library/LaunchDaemons/com.puppetlabs.puppet.plist
+echo '                <string>console</string>' >> /Library/LaunchDaemons/com.puppetlabs.puppet.plist
+echo '        </array>' >> /Library/LaunchDaemons/com.puppetlabs.puppet.plist
+echo '        <key>RunAtLoad</key>' >> /Library/LaunchDaemons/com.puppetlabs.puppet.plist
+echo '        <true/>' >> /Library/LaunchDaemons/com.puppetlabs.puppet.plist
+echo '        <key>ServiceDescription</key>' >> /Library/LaunchDaemons/com.puppetlabs.puppet.plist
+echo '        <string>Puppet Daemon</string>' >> /Library/LaunchDaemons/com.puppetlabs.puppet.plist
+echo '        <key>ServiceIPC</key>' >> /Library/LaunchDaemons/com.puppetlabs.puppet.plist
+echo '        <false/>' >> /Library/LaunchDaemons/com.puppetlabs.puppet.plist
+echo '        <key>StandardErrorPath</key>' >> /Library/LaunchDaemons/com.puppetlabs.puppet.plist
+echo '        <string>/var/log/puppet/puppet.err</string>' >> /Library/LaunchDaemons/com.puppetlabs.puppet.plist
+echo '        <key>StandardOutPath</key>' >> /Library/LaunchDaemons/com.puppetlabs.puppet.plist
+echo '        <string>/var/log/puppet/puppet.out</string>' >> /Library/LaunchDaemons/com.puppetlabs.puppet.plist
+echo '</dict>' >> /Library/LaunchDaemons/com.puppetlabs.puppet.plist
+echo '</plist>' >> /Library/LaunchDaemons/com.puppetlabs.puppet.plist
 
 echo "-- Set permissions on launchdaemon file..."
 sudo chown root:wheel /Library/LaunchDaemons/com.puppetlabs.puppet.plist  
