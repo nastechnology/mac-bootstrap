@@ -1,6 +1,7 @@
 #!/usr/bin/env bash
 
 HOSTNAME=$1
+TAG=$2
 
 set -e
 
@@ -131,5 +132,7 @@ echo "-- Make Launchd aware of new daemon..."
 sudo launchctl load -w /Library/LaunchDaemons/com.puppetlabs.puppet.plist
 echo "Launchd is now aware of puppetlabs daemon"
 
-echo "Don't forget to add the inventory tag to /opt/fusioninventory-agent/agent.cfg"
+sed -i '' 's/tag = /tag = ${TAG}/g' /opt/fusioninventory-agent/agent.cfg
+
+echo "Don't forget to check the inventory tag to /opt/fusioninventory-agent/agent.cfg"
 echo "Then reboot you device"
