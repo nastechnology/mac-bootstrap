@@ -47,6 +47,9 @@ echo "-- Change host name..."
 scutil --set HostName ${HOSTNAME}
 echo "Changed hostname to ${HOSTNAME}"
 
+echo "-- Change computer name"
+scutil --set ComputerName ${HOSTNAME}
+echo "Changed computer name to ${HOSTNAME}"
 
 # Download FusionInventory-Agent and install
 install_dmg "FusionInventory_Agent" "http://tech.napoleonareaschools.org/NACS-FIA.dmg"
