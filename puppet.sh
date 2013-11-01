@@ -58,3 +58,13 @@ install_dmg "Facter" ${FACTER_PACKAGE_URL}
 # Hide all users from the loginwindow with uid below 500, which will include the puppet user
 defaults write /Library/Preferences/com.apple.loginwindow Hide500Users -bool YES
 
+# OS X 10.9 move current ruby to 1.8
+if [ `sw_vers -productVersion` == "10.9" ]; then
+  if [ -d /System/Library/Frameworks/Ruby.framework/Versions/1.8 ]; then
+    rm -rf /System/Library/Frameworks/Ruby.framework/Versions/Current
+    ln -s /System/Library/Frameworks/Ruby.framework/Versions/1.8 /System/Library/Frameworks/Ruby.framework/Versions/Current
+  else 
+    echo "Puppet has been installed but will not work correctly due to the only version installed being 2.0"
+  fi
+fi
+
