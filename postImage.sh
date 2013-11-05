@@ -52,6 +52,10 @@ echo "-- Change computer name"
 scutil --set ComputerName ${HOSTNAME}
 echo "Changed computer name to ${HOSTNAME}"
 
+echo "-- Change bonjour hostname..."
+scutil --set LocalHostName ${HOSTNAME}
+echo "Changed bonjour hostname to ${HOSTNAME}"
+
 # Download FusionInventory-Agent and install
 install_dmg "FusionInventory_Agent" "http://tech.napoleonareaschools.org/NACS-FIA.dmg"
 # Download MunkiWebAdmin and install
