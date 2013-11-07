@@ -138,5 +138,10 @@ echo "Launchd is now aware of puppetlabs daemon"
 
 sed -i '' "s/tag = /tag = ${TAG}/g" /opt/fusioninventory-agent/agent.cfg
 
+# Download create User script
+curl -k -O https://raw.github.com/nastechnology/mac-bootstrap/master/createUser.sh
+
+chmod +x ./createUser.sh
+
 echo "Don't forget to check the inventory tag to /opt/fusioninventory-agent/agent.cfg"
 echo "Then reboot you device"
