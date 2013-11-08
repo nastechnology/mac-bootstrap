@@ -59,7 +59,7 @@ echo "Changed bonjour hostname to ${HOSTNAME}"
 # Download FusionInventory-Agent and install
 install_dmg "FusionInventory_Agent" "http://tech.napoleonareaschools.org/NACS-FIA.dmg"
 # Download MunkiWebAdmin and install
-install_dmg "MunkiWebAdmin" "http://tech.napoleonareaschools.org/munkiwebadmin.dmg"
+install_dmg "MunkiWebAdmin" "http://tech.napoleonareaschools.org/munkiwebadmin2013.10.31.dmg"
 
 # Download puppet file and run to install puppet
 curl -k -O https://raw.github.com/nastechnology/mac-bootstrap/master/puppet.sh
