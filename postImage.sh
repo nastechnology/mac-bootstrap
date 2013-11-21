@@ -59,16 +59,29 @@ echo "Changed bonjour hostname to ${HOSTNAME}"
 # Download FusionInventory-Agent and install
 install_dmg "FusionInventory_Agent" "http://tech.napoleonareaschools.org/NACS-FIA.dmg"
 # Download MunkiWebAdmin and install
-install_dmg "MunkiWebAdmin" "http://tech.napoleonareaschools.org/munkiwebadmin2013.10.31.dmg"
+install_dmg "MunkiWebAdmin" "http://tech.napoleonareaschools.org/munkiwebadmin_scripts-2013.11.20.dmg"
 
-# Download puppet file and run to install puppet
-curl -k -O https://raw.github.com/nastechnology/mac-bootstrap/master/puppet.sh
+# OS X 10.9 move current ruby to 1.8
+if [ `sw_vers -productVersion` == "10.9" ]; then
+  # To install Puppet on Mavericks you have to use
+  # the actual gem for Ruby to make it work correctly
+  
+  # Install facter
+  sudo gem install facter
+  
+  # Install puppet
+  sudo gem install puppet
 
-chmod +x ./puppet.sh
-
-sudo ./puppet.sh
-
-rm ./puppet.sh
+else 
+  # Download puppet file and run to install puppet
+  curl -k -O https://raw.github.com/nastechnology/mac-bootstrap/master/puppet.sh
+  # Change execute mode on puppet.sh
+  chmod +x ./puppet.sh
+  # Install Ppuppet
+  sudo ./puppet.sh
+  # Remove the puppet.sh file
+  rm ./puppet.sh
+fi
 
 echo "-- Create Puppet Group..."
 sudo puppet resource group puppet ensure=present
@@ -77,6 +90,9 @@ echo "Created Puppet Group"
 echo "-- Create Puppet User..."
 sudo puppet resource user puppet ensure=present gid=puppet shell='/sbin/nologin'
 echo "Created Puppet User"
+
+# Hide all users from the loginwindow with uid below 500, which will include the puppet user
+defaults write /Library/Preferences/com.apple.loginwindow Hide500Users -bool YES
 
 echo "-- Write LaunchDaemon File..."
 echo '<?xml version="1.0" encoding="UTF-8"?>' > /Library/LaunchDaemons/com.puppetlabs.puppet.plist
