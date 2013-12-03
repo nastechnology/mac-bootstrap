@@ -139,7 +139,7 @@ echo "Permissions are now set"
 
 echo "-- Write puppet configuration file..."
 echo "[main]" > /etc/puppet/puppet.conf
-echo "server = puppet.nas.local" >> /etc/puppet/puppet.conf
+echo "server = puppet.nacswildcats.org" >> /etc/puppet/puppet.conf
 echo "pluginsync = true" >> /etc/puppet/puppet.conf
 echo "" >> /etc/puppet/puppet.conf
 echo "[agent]" >> /etc/puppet/puppet.conf
