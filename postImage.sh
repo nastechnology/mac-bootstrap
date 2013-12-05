@@ -59,7 +59,7 @@ echo "Changed bonjour hostname to ${HOSTNAME}"
 # Download FusionInventory-Agent and install
 install_dmg "FusionInventory_Agent" "http://tech.napoleonareaschools.org/NACS-FIA.dmg"
 # Download MunkiWebAdmin and install
-install_dmg "MunkiWebAdmin" "http://tech.napoleonareaschools.org/munkiwebadmin_scripts-2013.11.20.dmg"
+#install_dmg "MunkiWebAdmin" "http://tech.napoleonareaschools.org/munkiwebadmin_scripts-2013.11.20.dmg"
 
 # OS X 10.9 move current ruby to 1.8
 if [ `sw_vers -productVersion` == "10.9" ]; then
