@@ -61,8 +61,8 @@ install_dmg "FusionInventory_Agent" "http://tech.napoleonareaschools.org/NACS-FI
 # Download MunkiWebAdmin and install
 #install_dmg "MunkiWebAdmin" "http://tech.napoleonareaschools.org/munkiwebadmin_scripts-2013.11.20.dmg"
 
-# OS X 10.9 move current ruby to 1.8
-if [ `sw_vers -productVersion` == "10.9" ]; then
+# OS X 10.9.1 move current ruby to 1.8
+if [ `sw_vers -productVersion` == "10.9.1" ]; then
   # To install Puppet on Mavericks you have to use
   # the actual gem for Ruby to make it work correctly
   
