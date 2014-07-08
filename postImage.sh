@@ -72,9 +72,12 @@ if [ `sw_vers -productVersion` == "10.9.2" ]; then
   # Install puppet
   sudo gem install puppet
 
+  # Install hiera
+  sudo gem install hiera
+
 else 
   # Download puppet file and run to install puppet
-  curl -k -O https://raw.github.com/nastechnology/mac-bootstrap/master/puppet.sh
+  curl -k -O https://raw.githubusercontent.com/nastechnology/mac-bootstrap/master/puppet.sh
   # Change execute mode on puppet.sh
   chmod +x ./puppet.sh
   # Install Ppuppet
@@ -155,7 +158,7 @@ echo "Launchd is now aware of puppetlabs daemon"
 sed -i '' "s/tag = /tag = ${TAG}/g" /opt/fusioninventory-agent/agent.cfg
 
 # Download create User script
-curl -k -O https://raw.github.com/nastechnology/mac-bootstrap/master/createUser.sh
+curl -k -O https://raw.githubusercontent.com/nastechnology/mac-bootstrap/master/createUser.sh
 
 chmod +x ./createUser.sh
 
