@@ -94,6 +94,12 @@ echo "-- Create Puppet User..."
 sudo puppet resource user puppet ensure=present gid=puppet shell='/sbin/nologin'
 echo "Created Puppet User"
 
+# Create Directory and new.txt file for first puppet run
+mkdir /opt/NACSManage
+
+touch /opt/NACSManage/new.txt
+
+
 # Hide all users from the loginwindow with uid below 500, which will include the puppet user
 defaults write /Library/Preferences/com.apple.loginwindow Hide500Users -bool YES
 
@@ -162,9 +168,6 @@ curl -k -O https://raw.githubusercontent.com/nastechnology/mac-bootstrap/master/
 
 chmod +x ./createUser.sh
 
-mkdir /opt/NACSManage
-
-touch /opt/NACSManage/new.txt
 
 echo "Don't forget to check the inventory tag to /opt/fusioninventory-agent/agent.cfg"
 echo "Then reboot you device"
