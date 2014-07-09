@@ -162,5 +162,9 @@ curl -k -O https://raw.githubusercontent.com/nastechnology/mac-bootstrap/master/
 
 chmod +x ./createUser.sh
 
+mkdir /opt/NACSManage
+
+touch /opt/NACSManage/new.txt
+
 echo "Don't forget to check the inventory tag to /opt/fusioninventory-agent/agent.cfg"
 echo "Then reboot you device"
