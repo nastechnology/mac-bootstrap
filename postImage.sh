@@ -61,30 +61,14 @@ install_dmg "FusionInventory_Agent" "http://tech.napoleonareaschools.org/NACS-FI
 # Download MunkiWebAdmin and install
 #install_dmg "MunkiWebAdmin" "http://tech.napoleonareaschools.org/munkiwebadmin_scripts-2013.11.20.dmg"
 
-# OS X 10.9.2 move current ruby to 1.8
-if [ `sw_vers -productVersion` == "10.9.2" ]; then
-  # To install Puppet on Mavericks you have to use
-  # the actual gem for Ruby to make it work correctly
-  
-  # Install facter
-  sudo gem install facter
-  
-  # Install puppet
-  sudo gem install puppet
-
-  # Install hiera
-  sudo gem install hiera
-
-else 
-  # Download puppet file and run to install puppet
-  curl -k -O https://raw.githubusercontent.com/nastechnology/mac-bootstrap/master/puppet.sh
-  # Change execute mode on puppet.sh
-  chmod +x ./puppet.sh
-  # Install Ppuppet
-  sudo ./puppet.sh
-  # Remove the puppet.sh file
-  rm ./puppet.sh
-fi
+# Download puppet file and run to install puppet
+curl -k -O https://raw.githubusercontent.com/nastechnology/mac-bootstrap/master/puppet.sh
+# Change execute mode on puppet.sh
+chmod +x ./puppet.sh
+# Install Ppuppet
+sudo ./puppet.sh
+# Remove the puppet.sh file
+rm ./puppet.sh
 
 echo "-- Create Puppet Group..."
 sudo puppet resource group puppet ensure=present
