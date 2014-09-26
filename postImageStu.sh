@@ -68,7 +68,7 @@ chmod +x ./puppetStudents.sh
 # Install Ppuppet
 sudo ./puppetStudents.sh
 # Remove the puppet.sh file
-rm ./puppet.sh
+rm ./puppetStudents.sh
 
 echo "-- Create Puppet Group..."
 sudo puppet resource group puppet ensure=present
