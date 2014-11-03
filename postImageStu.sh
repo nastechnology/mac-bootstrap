@@ -79,7 +79,9 @@ sudo puppet resource user puppet ensure=present gid=puppet shell='/sbin/nologin'
 echo "Created Puppet User"
 
 # Create Directory and new.txt file for first puppet run
-mkdir /opt/NACSManage
+if [ ! -d "/opt/NACSManage" ]; then
+  mkdir /opt/NACSManage
+fi
 
 touch /opt/NACSManage/new.txt
 
