@@ -53,15 +53,15 @@ function install_dmg() {
   hdiutil eject ${mount_point} >/dev/null
 }
 
+echo "-- Stop puppetlabs daemon..."
+sudo launchctl unload /Library/LaunchDaemons/com.puppetlabs.puppet.plist
+echo "Launchd has stopped puppetlabs daemon"
+
 # Install Puppet and Facter
 install_dmg "Facter" ${FACTER_PACKAGE_URL}
 install_dmg "Hiera" ${HIERA_PACKAGE_URL}
 install_dmg "Puppet" ${PUPPET_PACKAGE_URL}
 
-
-echo "-- Stop puppetlabs daemon..."
-sudo launchctl unload /Library/LaunchDaemons/com.puppetlabs.puppet.plist
-echo "Launchd has stopped puppetlabs daemon"
 
 echo "-- Remove SSL files..."
 sudo rm -Rf /etc/puppet/ssl
