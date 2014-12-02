@@ -14,7 +14,7 @@ set -e
 #--------------------------------------------------------------------
 FACTER_PACKAGE_URL=${FACTER_PACKAGE_URL:-"http://downloads.puppetlabs.com/mac/facter-2.2.0.dmg"}
 HIERA_PACKAGE_URL=${HIERA_PACKAGE_URL:-"http://downloads.puppetlabs.com/mac/hiera-1.3.4.dmg"}
-PUPPET_PACKAGE_URL=${PUPPET_PACKAGE_URL:-"http://downloads.puppetlabs.com/mac/puppet-3.7.0.dmg"}
+PUPPET_PACKAGE_URL=${PUPPET_PACKAGE_URL:-"http://downloads.puppetlabs.com/mac/puppet-3.7.3.dmg"}
 
 #--------------------------------------------------------------------
 # NO TUNABLES BELOW THIS POINT.
@@ -57,3 +57,20 @@ function install_dmg() {
 install_dmg "Facter" ${FACTER_PACKAGE_URL}
 install_dmg "Hiera" ${HIERA_PACKAGE_URL}
 install_dmg "Puppet" ${PUPPET_PACKAGE_URL}
+
+
+echo "-- Stop puppetlabs daemon..."
+sudo launchctl unload /Library/LaunchDaemons/com.puppetlabs.puppet.plist
+echo "Launchd has stopped puppetlabs daemon"
+
+echo "-- Remove SSL files..."
+sudo rm -Rf /etc/puppet/ssl
+echo "SSL files removed"
+
+echo "-- Replace old server with new server..."
+sed -i '' "s/server = puppet.nacswildcats.org/server = puppet01.nacswildcats.org/g" /etc/puppet/puppet.cfg
+echo "New server in place"
+
+echo "-- Make Launchd aware of new daemon..."
+sudo launchctl load -w /Library/LaunchDaemons/com.puppetlabs.puppet.plist
+echo "Launchd is now aware of puppetlabs daemon"

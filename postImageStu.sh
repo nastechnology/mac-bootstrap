@@ -61,6 +61,26 @@ install_dmg "FusionInventory_Agent" "http://tech.napoleonareaschools.org/NACS-FI
 # Download MunkiWebAdmin and install
 #install_dmg "MunkiWebAdmin" "http://tech.napoleonareaschools.org/munkiwebadmin_scripts-2013.11.20.dmg"
 
+# Install xcode command line tools
+echo "-- Install XCode Command Line tools"
+xcode-select --install
+echo "XCode Command Line Tools installed"
+
+# Install homebrew
+echo "-- Install Homebrew"
+ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
+echo "Homebrew installed"
+
+
+# Install rvm
+#echo "-- Install rvm"
+#curl -sSL https://get.rvm.io | bash -s stable
+#source /Users/technology/.rvm/scripts/rvm
+#rvm install ruby-1.9.3
+#echo "RVM installed"
+
+
+
 # Download puppet file and run to install puppet
 curl -k -O https://raw.githubusercontent.com/nastechnology/mac-bootstrap/master/puppetStudents.sh
 # Change execute mode on puppet.sh
