@@ -68,7 +68,7 @@ sudo rm -Rf /etc/puppet/ssl
 echo "SSL files removed"
 
 echo "-- Replace old server with new server..."
-sed -i '' "s/server = puppet.nacswildcats.org/server = puppet01.nacswildcats.org/g" /etc/puppet/puppet.cfg
+sed -i '' "s/server = puppet.nacswildcats.org/server = puppet01.nacswildcats.org/g" /etc/puppet/puppet.conf
 echo "New server in place"
 
 echo "-- Make Launchd aware of new daemon..."
