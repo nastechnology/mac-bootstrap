@@ -6,7 +6,9 @@
 #   - FACTER_PACKAGE_URL: The URL to the Facter package to install.
 #   - HIERA_PACKAGE_URL:  The URL to the Hiera package to install.
 #   - PUPPET_PACKAGE_URL: The URL to the Puppet package to install.
-#
+
+HOSTNAME=$1
+
 set -e
 
 #--------------------------------------------------------------------
@@ -56,6 +58,23 @@ function install_dmg() {
 echo "-- Stop puppetlabs daemon..."
 sudo launchctl unload /Library/LaunchDaemons/com.puppetlabs.puppet.plist
 echo "Launchd has stopped puppetlabs daemon"
+
+if [ ! -z "$HOSTNAME" ]; then
+  echo "-- Change host name..."
+  scutil --set HostName ${HOSTNAME}
+  echo "Changed hostname to ${HOSTNAME}"
+
+  echo "-- Change computer name"
+  scutil --set ComputerName ${HOSTNAME}
+  echo "Changed computer name to ${HOSTNAME}"
+
+  echo "-- Change bonjour hostname..."
+  scutil --set LocalHostName ${HOSTNAME}
+  echo "Changed bonjour hostname to ${HOSTNAME}"
+
+  sed -i '' "s/.*certname =.*/certname = ${HOSTNAME}.nas.local/" /etc/puppet/puppet.conf
+
+fi
 
 # Install Puppet and Facter
 install_dmg "Facter" ${FACTER_PACKAGE_URL}
