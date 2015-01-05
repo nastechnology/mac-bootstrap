@@ -76,6 +76,10 @@ if [ ! -z "$HOSTNAME" ]; then
 
 fi
 
+sudo gem uninstall facter
+sudo gem uninstall hiera
+sudo gem uninstall puppet
+
 # Install Puppet and Facter
 install_dmg "Facter" ${FACTER_PACKAGE_URL}
 install_dmg "Hiera" ${HIERA_PACKAGE_URL}
